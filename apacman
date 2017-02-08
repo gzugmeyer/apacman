@@ -346,6 +346,7 @@ isignored() {
 
 # List installed packages
 getlistpackages() {
+  export LC_ALL=C
   $pacmanbin -Qi${pacmanarg} | grep -e "^Name " -e "^Installed Size " | \
   awk '{if ($(NF-1) ~ /^[0-9]/) printf $(NF-1); print $NF}' | paste -s -d' \n' | \
   sed -e 's/iB$//' -e 's/\.00K/K/' -e 's/\.00B/B/' | awk '{printf "%-10s %-40s\n",$2,$1}' | sort -h
